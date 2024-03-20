@@ -51,6 +51,8 @@ typedef uint8_t flx_option;
 #define FLX_STATUS_ERR_INIT_INOTIFY 	0x01
 #define FLX_STATUS_ERR_ADD_WATCH 		0x02
 #define FLX_STATUS_ERR_READ_INOTIFY 	0x03
+#define FLX_STATUS_ERR_RM_WATCH			0x04
+#define FLX_STATUS_REG_ROLEXHOUND		0x05
 
 #define FLX_UNSET_UNSET					0xFF
 

@@ -24,7 +24,7 @@ const uint8_t OptionRanges[5] = {
 	FLX_QUIT_ERROR,
 	FLX_NOTIFY_MOVE,
 	FLX_REPLY_INVALID_DATA,
-	FLX_STATUS_ERR_READ_INOTIFY
+	FLX_STATUS_REG_ROLEXHOUND
 };
 
 const int ActionSizes[5] = {
@@ -113,11 +113,6 @@ void serialize(uint8_t buffer[FLX_PKT_MAXIMUM_SIZE], struct flex_msg *msg,
 
 	buffer[1] = msg->option;
 
-	if (validDataLength != 0 && msg->data == NULL) {
-		result->reply = FLX_REPLY_INVALID_DATA;
-		return;
-	}
-
 	for (int i = 0; i < msg->dataLen; i++) {
 
 		if (msg->data[i] == NULL) {
@@ -140,7 +135,7 @@ void serialize(uint8_t buffer[FLX_PKT_MAXIMUM_SIZE], struct flex_msg *msg,
 	}
 
 	buffer[2] = dataSize;
-	result->reply = FLX_PKT_MINIMUM_SIZE + dataSize;
+	result->size = FLX_PKT_MINIMUM_SIZE + dataSize;
 	result->reply = FLX_REPLY_VALID;
 	return;
 }
@@ -217,8 +212,7 @@ void deserialize(uint8_t buffer[FLX_PKT_MAXIMUM_SIZE],
 			continue;
 		}
 
-		// DIFF TO VID: Added space because it is less than ! but still valid :P
-		if (buffer[i] != ' ' && (buffer[i] < '!' || buffer[i] > '~')) {
+		if (buffer[i] < '!' || buffer[i] > '~') {
 
 			free(dataSizes);
 			result->reply = FLX_REPLY_INVALID_DATA;
