@@ -1,5 +1,5 @@
 /*  libflex.c - netflex protocol implementation helper functions
-    Copyright (C) 2024 mdhoff
+    Copyright (C) 2024 hoff.industries
 
     This program is free software: you can redistribute it and/or modify
     it under the terms of the GNU General Public License as published by
